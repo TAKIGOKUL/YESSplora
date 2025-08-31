@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle, Camera, MapPin, Clock, Trophy } from 'lucide-react';
+import { X, CheckCircle, Camera, MapPin, Trophy } from 'lucide-react';
 import './TaskModal.css';
 
 const TaskModal = ({ task, onComplete, onClose }) => {

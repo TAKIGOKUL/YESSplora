@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, CheckCircle, Clock, Target, Award } from 'lucide-react';
+import { Trophy, CheckCircle, Target, Award } from 'lucide-react';
 import { useGame } from '../context/GameContext';
 import './ProgressTracker.css';
 

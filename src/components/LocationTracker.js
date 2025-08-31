@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Navigation, Target, Clock, Wifi, WifiOff } from 'lucide-react';
+import { MapPin, Navigation, Target, Wifi, WifiOff } from 'lucide-react';
 import { useGame } from '../context/GameContext';
 import './LocationTracker.css';
 
 const LocationTracker = () => {
-  const { state, actions } = useGame();
+  const { state } = useGame();
   const [mapCenter, setMapCenter] = useState({ lat: 11.2588, lng: 75.7804 }); // NIT Calicut coordinates
-  const [zoom, setZoom] = useState(16);
+  // const [zoom, setZoom] = useState(16);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   // Update map center when user location changes

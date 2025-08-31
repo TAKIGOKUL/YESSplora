@@ -18,7 +18,7 @@ const LandingPage = () => {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showAdminAccess, setShowAdminAccess] = useState(false);
+  // const [showAdminAccess, setShowAdminAccess] = useState(false);
 
   // Handle form input changes
   const handleInputChange = (e) => {
@@ -97,11 +97,11 @@ const LandingPage = () => {
 
   // Check for PWA install prompt
   useEffect(() => {
-    let deferredPrompt;
+    // let deferredPrompt;
     
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
-      deferredPrompt = e;
+      // deferredPrompt = e;
     };
     
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);

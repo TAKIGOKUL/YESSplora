@@ -10,16 +10,16 @@ import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isPWA, setIsPWA] = useState(false);
+  // const [isPWA, setIsPWA] = useState(false);
 
   useEffect(() => {
     // Check if app is running as PWA
     const checkPWA = () => {
-      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+      // const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+      // const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      // const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
       
-      setIsPWA(isStandalone || (isIOS && isInStandaloneMode));
+      // setIsPWA(isStandalone || (isIOS && isInStandaloneMode));
     };
 
     checkPWA();

@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
+// import { motion } from 'framer-motion';
 import { Camera, CameraOff, RotateCcw } from 'lucide-react';
 import './ARCamera.css';
 
@@ -12,15 +12,7 @@ const ARCamera = () => {
   const [facingMode, setFacingMode] = useState('environment'); // 'user' or 'environment'
   const [capturedImage, setCapturedImage] = useState(null);
 
-  // Initialize camera
-  useEffect(() => {
-    startCamera();
-    return () => {
-      stopCamera();
-    };
-  }, [facingMode]);
-
-  const startCamera = async () => {
+  const startCamera = useCallback(async () => {
     try {
       setError(null);
       
@@ -50,15 +42,23 @@ const ARCamera = () => {
       setError('Unable to access camera. Please check permissions.');
       setIsStreaming(false);
     }
-  };
+  }, [stream, facingMode]);
 
-  const stopCamera = () => {
+  const stopCamera = useCallback(() => {
     if (stream) {
       stream.getTracks().forEach(track => track.stop());
       setStream(null);
     }
     setIsStreaming(false);
-  };
+  }, [stream]);
+
+  // Initialize camera
+  useEffect(() => {
+    startCamera();
+    return () => {
+      stopCamera();
+    };
+  }, [facingMode, startCamera, stopCamera]);
 
   const switchCamera = () => {
     setFacingMode(prev => prev === 'user' ? 'environment' : 'user');

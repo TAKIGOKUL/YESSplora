@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, MapPin, Trophy, Settings, Home, QrCode, Target } from 'lucide-react';
+import { Camera, MapPin, Trophy, Settings, Home, QrCode } from 'lucide-react';
 import { useGame } from '../context/GameContext';
 import ARCamera from './ARCamera';
 import TaskModal from './TaskModal';

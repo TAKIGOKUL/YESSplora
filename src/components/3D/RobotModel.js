@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF, useAnimations } from '@react-three/drei';
+// import { useGLTF, useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Simple robot model created with basic geometries

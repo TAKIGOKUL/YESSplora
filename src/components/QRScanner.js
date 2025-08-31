@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Camera, RotateCcw, CheckCircle, AlertCircle } from 'lucide-react';
+import { X, RotateCcw, CheckCircle, AlertCircle } from 'lucide-react';
 import jsQR from 'jsqr';
 import './QRScanner.css';
 
@@ -13,14 +13,51 @@ const QRScanner = ({ onScan, onClose }) => {
   const [scanResult, setScanResult] = useState(null);
   const [facingMode, setFacingMode] = useState('environment');
 
-  useEffect(() => {
-    startCamera();
-    return () => {
-      stopCamera();
-    };
-  }, [facingMode]);
+  const handleQRDetected = useCallback((data) => {
+    setScanResult(data);
+    setIsScanning(false);
+    stopCamera();
+    
+    // Process the QR code data
+    setTimeout(() => {
+      onScan(data);
+    }, 1000);
+  }, [onScan, stopCamera]);
 
-  const startCamera = async () => {
+  const stopCamera = useCallback(() => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    setIsScanning(false);
+  }, []);
+
+  const scanLoop = useCallback(() => {
+    if (!isScanning || !videoRef.current || !canvasRef.current) return;
+
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+
+    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+      if (code) {
+        handleQRDetected(code.data);
+        return;
+      }
+    }
+
+    // Continue scanning
+    requestAnimationFrame(scanLoop);
+  }, [isScanning, handleQRDetected]);
+
+  const startCamera = useCallback(async () => {
     try {
       setError(null);
       
@@ -53,51 +90,14 @@ const QRScanner = ({ onScan, onClose }) => {
       setError('Unable to access camera. Please check permissions.');
       setIsScanning(false);
     }
-  };
+  }, [facingMode, scanLoop]);
 
-  const stopCamera = () => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => track.stop());
-      streamRef.current = null;
-    }
-    setIsScanning(false);
-  };
-
-  const scanLoop = () => {
-    if (!isScanning || !videoRef.current || !canvasRef.current) return;
-
-    const video = videoRef.current;
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-
-    if (video.readyState === video.HAVE_ENOUGH_DATA) {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-      const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-      if (code) {
-        handleQRDetected(code.data);
-        return;
-      }
-    }
-
-    // Continue scanning
-    requestAnimationFrame(scanLoop);
-  };
-
-  const handleQRDetected = (data) => {
-    setScanResult(data);
-    setIsScanning(false);
-    stopCamera();
-    
-    // Process the QR code data
-    setTimeout(() => {
-      onScan(data);
-    }, 1000);
-  };
+  useEffect(() => {
+    startCamera();
+    return () => {
+      stopCamera();
+    };
+  }, [facingMode, startCamera, stopCamera]);
 
   const switchCamera = () => {
     setFacingMode(prev => prev === 'user' ? 'environment' : 'user');
@@ -216,4 +216,3 @@ const QRScanner = ({ onScan, onClose }) => {
 };
 
 export default QRScanner;
-

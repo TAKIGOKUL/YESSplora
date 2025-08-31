@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Plus, Trash2, Users, Settings, LogOut, Eye, EyeOff } from 'lucide-react';
+import { MapPin, Plus, Trash2, Users, LogOut, Eye, EyeOff } from 'lucide-react';
 import { useGame } from '../context/GameContext';
 import toast from 'react-hot-toast';
 import './AdminPanel.css';
