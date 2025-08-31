@@ -177,10 +177,12 @@ npm run build
 ```
 
 ### Hosting Options
-- **Netlify**: Drag and drop build folder
-- **Vercel**: Connect GitHub repository
-- **AWS S3**: Upload build files to bucket
-- **Firebase Hosting**: Deploy with Firebase CLI
+- **Netlify**: Connect main branch for auto-deployment
+- **Vercel**: Connect main branch for continuous deployment
+- **AWS S3**: Upload build files from main branch
+- **Firebase Hosting**: Deploy from main branch with CLI
+
+**Important**: This project uses main branch only - no feature branches or pull requests. All changes are committed directly to main.
 
 ### Environment Variables
 Set the following in your hosting platform:
@@ -230,11 +232,14 @@ Set the following in your hosting platform:
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+**Main Branch Only Workflow:**
+1. Clone the repository
+2. Make changes directly on main branch
+3. Test thoroughly
+4. Commit and push to main
+5. Deploy automatically from main
+
+**No branching strategy** - all development happens directly on the main branch for simplicity and immediate deployment.
 
 ## 📄 License
 
