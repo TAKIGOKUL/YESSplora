@@ -1,0 +1,439 @@
+/* Main Game Styles */
+.main-game {
+  min-height: 100vh;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Header */
+.game-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.header-center {
+  flex: 1;
+  text-align: center;
+}
+
+.game-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.header-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-btn:hover {
+  background: var(--border);
+  color: var(--text-primary);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.user-ticket {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-family: 'Courier New', monospace;
+}
+
+/* Progress Section */
+.progress-section {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-md) var(--space-lg);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.progress-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.progress-percentage {
+  font-size: 0.9rem;
+  color: var(--primary-red);
+  font-weight: 700;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--red-gradient);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+/* Game Content */
+.game-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.camera-view {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.map-view,
+.progress-view {
+  padding: var(--space-lg);
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* AR Overlay */
+.ar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.treasure-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.treasure-pulse {
+  width: 100px;
+  height: 100px;
+  border: 3px solid var(--primary-red);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.treasure-icon {
+  font-size: 2rem;
+  z-index: 2;
+  position: relative;
+}
+
+.treasure-text {
+  background: var(--surface);
+  color: var(--text-primary);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+  position: relative;
+}
+
+.location-error {
+  position: absolute;
+  top: var(--space-lg);
+  left: var(--space-lg);
+  right: var(--space-lg);
+  background: rgba(255, 68, 68, 0.9);
+  color: white;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  backdrop-filter: blur(10px);
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  min-width: 60px;
+}
+
+.nav-item:hover {
+  color: var(--text-primary);
+  background: var(--border);
+}
+
+.nav-item.active {
+  color: var(--primary-red);
+  background: rgba(229, 9, 20, 0.1);
+}
+
+.nav-item span {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.nav-item.qr-scanner {
+  background: var(--red-gradient);
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  box-shadow: var(--shadow-md);
+}
+
+.nav-item.qr-scanner:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.nav-item.qr-scanner span {
+  color: white;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-header {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .game-title {
+    font-size: 1rem;
+  }
+  
+  .user-info {
+    display: none;
+  }
+  
+  .progress-section {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .map-view,
+  .progress-view {
+    padding: var(--space-md);
+  }
+  
+  .treasure-indicator {
+    top: 40%;
+  }
+  
+  .treasure-pulse {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .treasure-icon {
+    font-size: 1.5rem;
+  }
+  
+  .location-error {
+    top: var(--space-md);
+    left: var(--space-md);
+    right: var(--space-md);
+    font-size: 0.85rem;
+  }
+  
+  .bottom-nav {
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .nav-item {
+    min-width: 50px;
+    padding: var(--space-xs);
+  }
+  
+  .nav-item.qr-scanner {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .nav-item span {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-header {
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .header-left,
+  .header-right {
+    gap: var(--space-sm);
+  }
+  
+  .game-title {
+    font-size: 0.9rem;
+  }
+  
+  .progress-section {
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .progress-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+  
+  .map-view,
+  .progress-view {
+    padding: var(--space-sm);
+  }
+  
+  .treasure-pulse {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .treasure-icon {
+    font-size: 1.2rem;
+  }
+  
+  .treasure-text {
+    font-size: 0.8rem;
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .bottom-nav {
+    padding: var(--space-xs);
+  }
+  
+  .nav-item {
+    min-width: 45px;
+  }
+  
+  .nav-item.qr-scanner {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .main-game {
+    background: #000000;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .game-header,
+  .progress-section,
+  .bottom-nav {
+    border-width: 2px;
+    border-color: #FFFFFF;
+  }
+  
+  .header-btn,
+  .nav-item {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .treasure-pulse {
+    animation: none;
+  }
+  
+  .nav-item.qr-scanner:hover {
+    transform: none;
+  }
+  
+  .progress-fill {
+    transition: none;
+  }
+}
+
