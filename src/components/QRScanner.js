@@ -13,17 +13,6 @@ const QRScanner = ({ onScan, onClose }) => {
   const [scanResult, setScanResult] = useState(null);
   const [facingMode, setFacingMode] = useState('environment');
 
-  const handleQRDetected = useCallback((data) => {
-    setScanResult(data);
-    setIsScanning(false);
-    stopCamera();
-    
-    // Process the QR code data
-    setTimeout(() => {
-      onScan(data);
-    }, 1000);
-  }, [onScan, stopCamera]);
-
   const stopCamera = useCallback(() => {
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(track => track.stop());
@@ -31,6 +20,17 @@ const QRScanner = ({ onScan, onClose }) => {
     }
     setIsScanning(false);
   }, []);
+
+  const handleQRDetected = useCallback((data) => {
+    setScanResult(data);
+    setIsScanning(false);
+    
+    // Process the QR code data
+    setTimeout(() => {
+      onScan(data);
+      stopCamera();
+    }, 1000);
+  }, [onScan, stopCamera]);
 
   const scanLoop = useCallback(() => {
     if (!isScanning || !videoRef.current || !canvasRef.current) return;
